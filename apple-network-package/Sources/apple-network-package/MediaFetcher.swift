@@ -19,6 +19,8 @@ public class MediaFetcher: MediaFetcherProtocol {
         return "https://itunes.apple.com"
     }
     
+    public init() { } // Required to be able to get instance outside of package.
+    
     public func search(with term: String?, completion: @escaping NetworkCompletionHandler) {
         
         guard let search = term else { return }
