@@ -3,17 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		DC90DCB2243E6EFD0029FD57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC90DCB1243E6EFD0029FD57 /* AppDelegate.swift */; };
-		DC90DCB6243E6EFD0029FD57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC90DCB5243E6EFD0029FD57 /* ViewController.swift */; };
 		DC90DCB9243E6EFD0029FD57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC90DCB7243E6EFD0029FD57 /* Main.storyboard */; };
 		DC90DCBB243E6F010029FD57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC90DCBA243E6F010029FD57 /* Assets.xcassets */; };
 		DC90DCBE243E6F010029FD57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC90DCBC243E6F010029FD57 /* LaunchScreen.storyboard */; };
 		DC90DCC9243E6F010029FD57 /* lightweightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC90DCC8243E6F010029FD57 /* lightweightTests.swift */; };
 		DC90DCD4243E6F010029FD57 /* lightweightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC90DCD3243E6F010029FD57 /* lightweightUITests.swift */; };
+		DC90DCE4243E8F800029FD57 /* MainSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC90DCE3243E8F7F0029FD57 /* MainSearchViewController.swift */; };
+		DC90DCE8243E90BF0029FD57 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC90DCE7243E90BF0029FD57 /* MediaCell.swift */; };
+		DC90DCEB243E92C30029FD57 /* apple-data-package in Frameworks */ = {isa = PBXBuildFile; productRef = DC90DCEA243E92C30029FD57 /* apple-data-package */; };
+		DC90DCED243E92C30029FD57 /* apple-network-package in Frameworks */ = {isa = PBXBuildFile; productRef = DC90DCEC243E92C30029FD57 /* apple-network-package */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,6 @@
 /* Begin PBXFileReference section */
 		DC90DCAE243E6EFD0029FD57 /* lightweight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lightweight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC90DCB1243E6EFD0029FD57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DC90DCB5243E6EFD0029FD57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DC90DCB8243E6EFD0029FD57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DC90DCBA243E6F010029FD57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC90DCBD243E6F010029FD57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +51,8 @@
 		DC90DCD5243E6F010029FD57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC90DCE1243E70050029FD57 /* apple-network-package */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "apple-network-package"; sourceTree = "<group>"; };
 		DC90DCE2243E70420029FD57 /* apple-data-package */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "apple-data-package"; sourceTree = "<group>"; };
+		DC90DCE3243E8F7F0029FD57 /* MainSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSearchViewController.swift; sourceTree = "<group>"; };
+		DC90DCE7243E90BF0029FD57 /* MediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC90DCEB243E92C30029FD57 /* apple-data-package in Frameworks */,
+				DC90DCED243E92C30029FD57 /* apple-network-package in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +91,7 @@
 				DC90DCC7243E6F010029FD57 /* lightweightTests */,
 				DC90DCD2243E6F010029FD57 /* lightweightUITests */,
 				DC90DCAF243E6EFD0029FD57 /* Products */,
+				DC90DCE9243E92C30029FD57 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,8 +108,8 @@
 		DC90DCB0243E6EFD0029FD57 /* lightweight */ = {
 			isa = PBXGroup;
 			children = (
+				DC90DCE5243E90A10029FD57 /* Controllers */,
 				DC90DCB1243E6EFD0029FD57 /* AppDelegate.swift */,
-				DC90DCB5243E6EFD0029FD57 /* ViewController.swift */,
 				DC90DCB7243E6EFD0029FD57 /* Main.storyboard */,
 				DC90DCBA243E6F010029FD57 /* Assets.xcassets */,
 				DC90DCBC243E6F010029FD57 /* LaunchScreen.storyboard */,
@@ -129,6 +136,30 @@
 			path = lightweightUITests;
 			sourceTree = "<group>";
 		};
+		DC90DCE5243E90A10029FD57 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DC90DCE3243E8F7F0029FD57 /* MainSearchViewController.swift */,
+				DC90DCE6243E90B20029FD57 /* Cells */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		DC90DCE6243E90B20029FD57 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DC90DCE7243E90BF0029FD57 /* MediaCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		DC90DCE9243E92C30029FD57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,6 +176,10 @@
 			dependencies = (
 			);
 			name = lightweight;
+			packageProductDependencies = (
+				DC90DCEA243E92C30029FD57 /* apple-data-package */,
+				DC90DCEC243E92C30029FD57 /* apple-network-package */,
+			);
 			productName = lightweight;
 			productReference = DC90DCAE243E6EFD0029FD57 /* lightweight.app */;
 			productType = "com.apple.product-type.application";
@@ -260,8 +295,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC90DCB6243E6EFD0029FD57 /* ViewController.swift in Sources */,
 				DC90DCB2243E6EFD0029FD57 /* AppDelegate.swift in Sources */,
+				DC90DCE8243E90BF0029FD57 /* MediaCell.swift in Sources */,
+				DC90DCE4243E8F800029FD57 /* MainSearchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +626,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DC90DCEA243E92C30029FD57 /* apple-data-package */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "apple-data-package";
+		};
+		DC90DCEC243E92C30029FD57 /* apple-network-package */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "apple-network-package";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DC90DCA6243E6EFD0029FD57 /* Project object */;
 }
