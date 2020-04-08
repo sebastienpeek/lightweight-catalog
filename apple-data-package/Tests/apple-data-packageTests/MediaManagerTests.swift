@@ -23,15 +23,13 @@ class MockedManager: MediaManagerProtocol {
 
 final class MediaManagerTests: XCTestCase {
     
-    override func setUp() {
-        
+    private let defaultExpectationHandler: XCWaitCompletionHandler = { (error) in
+        if error != nil {
+            XCTFail("Expectations Timeout")
+        }
     }
     
-    override func tearDown() {
-        
-    }
-    
-    func testSearchFunctionality() {
+    func testMockedSearchFunctionality() {
         
         MockedManager().search(with: "test") { (collection, error) in
             if let collection = collection {
@@ -40,8 +38,28 @@ final class MediaManagerTests: XCTestCase {
         }
         
     }
+    
+    func testSearchFunctionality() {
+        
+        let searchExpectation = expectation(description: "Waiting for search response")
+        
+        MediaManager().search(with: "test") { (collection, error) in
+            
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            }
+            
+            if collection != nil {
+                searchExpectation.fulfill()
+            }
+            
+        }
+        
+        waitForExpectations(timeout: 5, handler: defaultExpectationHandler)
+        
+    }
 
     static var allTests = [
-        ("testSearchFunctionality", testSearchFunctionality),
+        ("testMockedSearchFunctionality", testMockedSearchFunctionality),
     ]
 }

@@ -20,8 +20,9 @@ enum MediaRouter {
         case .search(let term):
             // We now want to make sure that we have set the query items as expected.
             baseURL.queryItems = [
-                URLQueryItem(name: "search", value: term)
+                URLQueryItem(name: "term", value: term)
             ]
+            baseURL.path = "/search"
         }
         
         guard let url = baseURL.url else { fatalError("The url has been built up incorrectly.") }

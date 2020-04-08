@@ -21,8 +21,20 @@ public enum MediaType: String, Codable {
     case song
     case tvEpisode = "tv-episode"
     case artist
+    case none
 }
 
+class Response: Codable {
+    
+    var resultCount: Int?
+    var results: [Media]?
+    
+    enum CodingKeys: String, CodingKey {
+        case resultCount
+        case results
+    }
+    
+}
 
 public class Media: Codable {
     
@@ -34,11 +46,11 @@ public class Media: Codable {
     public var url: String?
     
     enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case artwork
-        case genre
-        case url
+        case id = "artistId"
+        case name = "artistName"
+        case artwork = "artworkUrl60"
+        case genre = "kind"
+        case url = "collectionViewUrl"
     }
     
 }
