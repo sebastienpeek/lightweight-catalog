@@ -23,6 +23,17 @@ public enum MediaType: String, Codable {
     case artist
 }
 
+class Response: Codable {
+    
+    var resultCount: Int?
+    var results: [Media]?
+    
+    enum CodingKeys: String, CodingKey {
+        case resultCount
+        case results
+    }
+    
+}
 
 public class Media: Codable {
     

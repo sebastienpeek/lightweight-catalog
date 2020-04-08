@@ -66,8 +66,9 @@ extension MediaManager {
         
         // Serialize the data into an object
         do {
-            let media = try JSONDecoder().decode([Media].self, from: data)
-            return media
+            let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
+            print(decodedResponse)
+            return decodedResponse.results
         } catch {
             print("Error during JSON serialization: \(error.localizedDescription)")
             throw error
