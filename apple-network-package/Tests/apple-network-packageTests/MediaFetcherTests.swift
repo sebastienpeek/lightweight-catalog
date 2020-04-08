@@ -22,14 +22,13 @@ final class MediaFetcherTests: XCTestCase {
         
         MediaFetcher().search(with: "testing with the tests") { (result) in
             switch result {
-            case .success(let data):
-                print(data)
+            case .success(_):
+                searchExpectation.fulfill()
             case .failure(let error):
-                XCTFail("Received error message")
+                XCTFail(error.localizedDescription)
             case .none:
                 XCTFail("Should never reecive none")
             }
-            searchExpectation.fulfill()
         }
         
         waitForExpectations(timeout: 5, handler: defaultExpectationHandler)
