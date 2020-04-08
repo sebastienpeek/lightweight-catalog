@@ -20,6 +20,8 @@ class MainSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.tableFooterView = UIView()
+        
     }
 
 }
@@ -47,6 +49,11 @@ extension MainSearchViewController: UISearchBarDelegate {
             
         }
         
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.media.removeAll()
+        self.tableView.reloadData()
     }
     
 }
