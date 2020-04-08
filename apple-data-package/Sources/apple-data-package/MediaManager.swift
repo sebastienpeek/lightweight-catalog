@@ -57,9 +57,7 @@ public class MediaManager: MediaManagerProtocol {
 extension MediaManager {
     
     func sort(with media: [Media]) -> [MediaType: [Media]]? {
-        
-        
-        return nil
+        return Dictionary(grouping: media ) { $0.genre ?? .none }
     }
     
     func decode(with data: Data) throws -> [Media]? {
@@ -67,7 +65,6 @@ extension MediaManager {
         // Serialize the data into an object
         do {
             let decodedResponse = try JSONDecoder().decode(Response.self, from: data)
-            print(decodedResponse)
             return decodedResponse.results
         } catch {
             print("Error during JSON serialization: \(error.localizedDescription)")
