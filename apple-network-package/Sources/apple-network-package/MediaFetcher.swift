@@ -38,8 +38,6 @@ public class MediaFetcher: MediaFetcherProtocol {
         // Build up the completion handler.
         let completionHandler: (Data?, URLResponse?, Error?) -> Void = { (data, response, error) in
             
-            print(response)
-            
             if let error = error {
                 // We want to return a failure to completion handler.
                 completion(.failure(error))
