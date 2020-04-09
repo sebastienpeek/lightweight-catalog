@@ -45,6 +45,8 @@ public class Media: Codable {
     public var genre: MediaType?
     public var url: String?
     
+    public var favorited: Bool = false
+    
     enum CodingKeys: String, CodingKey {
         case id = "artistId"
         case name = "artistName"
