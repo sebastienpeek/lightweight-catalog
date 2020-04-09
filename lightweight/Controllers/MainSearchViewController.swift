@@ -15,12 +15,18 @@ class MainSearchViewController: UIViewController {
     @IBOutlet weak var searchView: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    private var fetchedMedia: [MediaType: [Media]] = [:]
     private var media: [MediaType: [Media]] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.tableFooterView = UIView()
+        
+        // We want to make sure that we have any favorites automatically loaded.
+        if let favorites = MediaManager().favorites() {
+            self.media = favorites
+        }
         
     }
 
@@ -41,9 +47,10 @@ extension MainSearchViewController: UISearchBarDelegate {
             }
             
             if let collection = collection {
-                self?.media = collection
+                // When we get the media back, we want to save this in the fetched array.
+                self?.fetchedMedia = collection
                 DispatchQueue.main.async {
-                    self?.tableView.reloadData()
+                    self?.reloadTable()
                 }
             }
             
@@ -52,8 +59,8 @@ extension MainSearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.media.removeAll()
-        self.tableView.reloadData()
+        self.fetchedMedia.removeAll()
+        self.reloadTable()
     }
     
 }
@@ -89,6 +96,47 @@ extension MainSearchViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setup(with: item)
         
         return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let map = media.keys.map { type -> MediaType in
+            return type
+        }
+        let key = map[indexPath.section]
+        
+        guard let item = media[key]?[indexPath.row] else { return }
+        
+        // Do we need to favorite or unfavorite?
+        if item.favorited {
+            MediaManager().unfavorite(item)
+            item.favorited = false
+        } else {
+            MediaManager().favorite(item)
+            item.favorited = true
+        }
+        
+        reloadTable()
+        
+    }
+    
+}
+
+extension MainSearchViewController {
+    
+    private func reloadTable() {
+        
+        if let favorites = MediaManager().favorites() {
+            self.media = favorites
+        }
+        
+        if fetchedMedia.keys.count > 0 {
+            self.media.merge(fetchedMedia) { (current, new) -> [Media] in
+                return new
+            }
+        }
+        
+        self.tableView.reloadData()
         
     }
     

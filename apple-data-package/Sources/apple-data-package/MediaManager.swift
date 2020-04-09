@@ -12,7 +12,10 @@ import apple_network_package
 public typealias MediaCompletion = ([MediaType: [Media]]?, Error?) -> Void
 
 protocol MediaManagerProtocol {
+    func favorites() -> [MediaType: [Media]]?
     func search(with term: String?, completion: @escaping MediaCompletion)
+    func favorite(_ media: Media)
+    func unfavorite(_ media: Media)
 }
 
 public class MediaManager: MediaManagerProtocol {
@@ -51,16 +54,127 @@ public class MediaManager: MediaManagerProtocol {
         
     }
     
+    public func favorites() -> [MediaType : [Media]]? {
+        guard let favorites = self.getFavorites() else { return nil }
+        // We need to mark them all as favorites.
+        for item in favorites {
+            item.favorited = true
+        }
+        return sort(with: favorites)
+    }
+    
+    public func favorite(_ media: Media) {
+        self.insert(favorite: media)
+    }
+    
+    public func unfavorite(_ media: Media) {
+        self.remove(favorite: media)
+    }
+    
 }
 
-// MARK: Private Functions
+// MARK: - Private Functions
+
+// MARK: Handling Local Persistance
 extension MediaManager {
     
-    func sort(with media: [Media]) -> [MediaType: [Media]]? {
+    private func insert(favorite: Media) {
+        
+        let url = getDocumentsDirectory().appendingPathComponent("favorites")
+        
+        var favoritesToSave: [Media] = []
+        
+        // We need to get the favorites first.
+        if let favorites = self.getFavorites() {
+            favoritesToSave.append(contentsOf: favorites)
+        }
+        
+        // Append the new favorite, encode and save.
+        favoritesToSave.append(favorite)
+        
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(favoritesToSave)
+            if FileManager.default.fileExists(atPath: url.path) {
+                try FileManager.default.removeItem(at: url)
+            }
+            FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+        
+    }
+    
+    private func remove(favorite: Media) {
+        
+        let url = getDocumentsDirectory().appendingPathComponent("favorites")
+        
+        var favoritesToSave: [Media] = []
+        
+        // We need to get the favorites first.
+        if let favorites = self.getFavorites() {
+            favoritesToSave.append(contentsOf: favorites)
+        }
+        
+        var newFavorites: [Media] = []
+        
+        // Remove the favorite.
+        for item in favoritesToSave where item.id != favorite.id {
+            newFavorites.append(item)
+        }
+        
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(newFavorites)
+            if FileManager.default.fileExists(atPath: url.path) {
+                try FileManager.default.removeItem(at: url)
+            }
+            FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+        
+    }
+    
+    private func getFavorites() -> [Media]? {
+        
+        let url = getDocumentsDirectory().appendingPathComponent("favorites")
+        
+        if !FileManager.default.fileExists(atPath: url.path) {
+            print("There isn't an item here yet.")
+        }
+        
+        if let data = FileManager.default.contents(atPath: url.path) {
+            let decoder = JSONDecoder()
+            do {
+                let model = try decoder.decode([Media].self, from: data)
+                return model
+            } catch {
+                fatalError(error.localizedDescription)
+            }
+        } else {
+            print("There's no favorites yet!")
+        }
+        
+        return nil
+        
+    }
+    
+    fileprivate func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+}
+
+// MARK: Handling Networking Response
+extension MediaManager {
+    
+    private func sort(with media: [Media]) -> [MediaType: [Media]]? {
         return Dictionary(grouping: media ) { $0.genre ?? .none }
     }
     
-    func decode(with data: Data) throws -> [Media]? {
+    private func decode(with data: Data) throws -> [Media]? {
         
         // Serialize the data into an object
         do {
