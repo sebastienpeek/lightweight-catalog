@@ -141,7 +141,8 @@ extension MediaManager {
         let url = getDocumentsDirectory().appendingPathComponent("favorites")
         
         if !FileManager.default.fileExists(atPath: url.path) {
-            print("There isn't an item here yet.")
+            print("There is no file yet.")
+            return nil
         }
         
         if let data = FileManager.default.contents(atPath: url.path) {
