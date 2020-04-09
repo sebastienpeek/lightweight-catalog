@@ -43,7 +43,7 @@ final class MediaManagerTests: XCTestCase {
         
         let searchExpectation = expectation(description: "Waiting for search response")
         
-        MediaManager().search(with: "test") { (collection, error) in
+        MediaManager().search(with: "Fever 333") { (collection, error) in
             
             if let error = error {
                 XCTFail(error.localizedDescription)

@@ -20,7 +20,7 @@ final class MediaFetcherTests: XCTestCase {
         
         let searchExpectation = expectation(description: "Waiting for search response")
         
-        MediaFetcher().search(with: "testing with the tests") { (result) in
+        MediaFetcher().search(with: "Fever 333") { (result) in
             switch result {
             case .success(_):
                 searchExpectation.fulfill()
