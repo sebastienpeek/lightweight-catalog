@@ -67,6 +67,17 @@ extension MainSearchViewController: UISearchBarDelegate {
 
 extension MainSearchViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection
+                                section: Int) -> String? {
+        let map = media.keys.map { type -> MediaType in
+            return type
+        }
+        let key = map[section]
+        
+        return "\(key.rawValue.capitalized)"
+    }
+
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return media.keys.count
     }

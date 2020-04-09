@@ -10,9 +10,6 @@ import UIKit
 
 import apple_data_package
 
-protocol MediaCellDelegate {
-    func favorite(flag: Bool)
-}
 
 class MediaCell: UITableViewCell {
     
@@ -37,6 +34,7 @@ class MediaCell: UITableViewCell {
         
         self.nameLabel.text = media.name
         self.linkLabel.text = media.url
+        self.genreLabel.text = media.genre?.rawValue
         
         if !media.favorited {
             favoritedImageView.image = UIImage(systemName: "heart")
@@ -57,6 +55,19 @@ class MediaCell: UITableViewCell {
             }
         }
         
+        if self.linkLabel.text != nil {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(linkTapped(_:)))
+            tapGesture.numberOfTouchesRequired = 1
+            tapGesture.numberOfTapsRequired = 1
+            self.linkLabel.addGestureRecognizer(tapGesture)
+        }
+        
+    }
+    
+    @objc func linkTapped(_ sender: Any) {
+        if let string = self.linkLabel.text, let url = URL(string: string) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
 
 }
