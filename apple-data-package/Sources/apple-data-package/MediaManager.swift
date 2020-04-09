@@ -116,14 +116,16 @@ extension MediaManager {
             favoritesToSave.append(contentsOf: favorites)
         }
         
+        var newFavorites: [Media] = []
+        
         // Remove the favorite.
-        for (key, value) in favoritesToSave.enumerated() where value.id == favorite.id {
-            favoritesToSave.remove(at: key)
+        for item in favoritesToSave where item.id != favorite.id {
+            newFavorites.append(item)
         }
         
         let encoder = JSONEncoder()
         do {
-            let data = try encoder.encode(favoritesToSave)
+            let data = try encoder.encode(newFavorites)
             if FileManager.default.fileExists(atPath: url.path) {
                 try FileManager.default.removeItem(at: url)
             }

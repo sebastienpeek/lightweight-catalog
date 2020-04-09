@@ -130,8 +130,10 @@ extension MainSearchViewController {
             self.media = favorites
         }
         
-        self.media.merge(fetchedMedia) { (current, new) -> [Media] in
-            return new
+        if fetchedMedia.keys.count > 0 {
+            self.media.merge(fetchedMedia) { (current, new) -> [Media] in
+                return new
+            }
         }
         
         self.tableView.reloadData()
