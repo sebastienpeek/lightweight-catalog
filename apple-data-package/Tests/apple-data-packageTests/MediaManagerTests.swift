@@ -12,11 +12,32 @@ import XCTest
 class MockedManager: MediaManagerProtocol {
     
     var mockedMedia: [Media] = [
-        
+        Media(with: 1),
+        Media(with: 2, genre: .song),
+        Media(with: 3, genre: .song),
+        Media(with: 4, genre: .song),
+        Media(with: 5, genre: .artist),
+        Media(with: 6, genre: .album)
     ]
     
-    func search(with term: String?, completion: @escaping MediaCompletion) {
+    func favorites() -> [MediaType : [Media]]? {
+        return sort(with: mockedMedia)
+    }
+    
+    func favorite(_ media: Media) {
         
+    }
+    
+    func unfavorite(_ media: Media) {
+        
+    }
+    
+    func search(with term: String?, completion: @escaping MediaCompletion) {
+        completion(sort(with: mockedMedia), nil)
+    }
+    
+    private func sort(with media: [Media]) -> [MediaType: [Media]]? {
+        return Dictionary(grouping: media ) { $0.genre ?? .none }
     }
     
 }
