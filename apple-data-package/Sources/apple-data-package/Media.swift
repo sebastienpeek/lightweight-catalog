@@ -55,4 +55,15 @@ public class Media: Codable {
         case url = "collectionViewUrl"
     }
     
+    convenience init(with id: Int, name: String? = nil, artwork: String? = nil, genre: MediaType? = nil, url: String? = nil) {
+        self.init()
+        
+        self.id = id
+        self.name = name
+        self.artwork = artwork
+        self.genre = genre ?? MediaType.none
+        self.url = url
+        
+    }
+    
 }
